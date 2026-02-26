@@ -28,7 +28,9 @@
   overflow: hidden;
   max-width: 0;
   opacity: 0;
-  transition: max-width 0.4s ease, opacity 0.3s ease;
+  transition:
+    max-width 0.4s ease,
+    opacity 0.3s ease;
   white-space: nowrap;
 }
 
@@ -43,7 +45,7 @@
   font-size: 1.2vw;
   font-weight: 700;
   letter-spacing: 0.08em;
-  text-shadow: 0 1px 4px rgba(0,0,0,0.6);
+  text-shadow: 0 1px 4px rgba(0, 0, 0, 0.6);
   transition: color 0.2s ease;
 }
 
@@ -90,8 +92,8 @@
 .taco-wrap {
   position: absolute;
   top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
+  left: 3%;
+  transform: translateY(-50%);
 }
 
 .taco-main {
@@ -106,17 +108,26 @@
 }
 
 .slide-down {
-  animation: slide-down 0.6s cubic-bezier(.25,.46,.45,.94) both;
+  animation: bounce-drop 1s ease both;
 }
 
-@keyframes slide-down {
+@keyframes bounce-drop {
   0% {
-    transform: translate(-50%, calc(-50% - 20vh));
+    transform: translateY(calc(-50% - 60vh));
     opacity: 0;
   }
-  100% {
-    transform: translate(-50%, -50%);
+  60% {
+    transform: translateY(calc(-50% + 8%));
     opacity: 1;
+  }
+  75% {
+    transform: translateY(calc(-50% - 4%));
+  }
+  88% {
+    transform: translateY(calc(-50% + 2%));
+  }
+  100% {
+    transform: translateY(-50%);
   }
 }
 
@@ -136,7 +147,6 @@
   width: 100%;
   display: block;
 }
-
 
 /* ==============================
    FAN SLIDER
@@ -186,7 +196,6 @@
   position: relative;
 }
 
-
 /* ==============================
    MENU / FOOD ITEMS
 ============================== */
@@ -196,17 +205,54 @@
 
 .food-items {
   position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 2vw;
-  width: 60vw;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
 }
 
-.food-items img {
-  width: 100%;
+#menu .food-img {
+  position: absolute;
+  width: 22vw;
+  transform: translate(-50%, -50%);
+  animation: food-bounce 2s ease-in-out infinite;
+}
+
+@keyframes food-bounce {
+  0%, 100% { transform: translate(-50%, -50%);       }
+  50%       { transform: translate(-50%, calc(-50% - 1.5vh)); }
+}
+
+.food-img--1 { animation-delay: 0s;    }
+.food-img--2 { animation-delay: 0.3s;  }
+.food-img--3 { animation-delay: 0.6s;  }
+.food-img--4 { animation-delay: 0.15s; }
+.food-img--5 { animation-delay: 0.45s; }
+.food-img--6 { animation-delay: 0.75s; }
+
+.food-img--1 {
+  left: 21%;
+  top: 42%;
+}
+.food-img--2 {
+  left: 50%;
+  top: 45%;
+}
+.food-img--3 {
+  left: 82%;
+  top: 40%;
+}
+.food-img--4 {
+  left: 22%;
+  top: 72%;
+}
+.food-img--5 {
+  left: 50%;
+  top: 78%;
+}
+.food-img--6 {
+  left: 78%;
+  top: 75%;
 }
 
 /* ==============================

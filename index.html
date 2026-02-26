@@ -52,12 +52,12 @@
       <div id="menu">
         <img src="images/main_06.jpg" alt="" />
         <div class="food-items">
-          <img src="images/food1.png" alt="" class="food-img" />
-          <img src="images/food2.png" alt="" class="food-img" />
-          <img src="images/food3.png" alt="" class="food-img" />
-          <img src="images/food4.png" alt="" class="food-img" />
-          <img src="images/food5.png" alt="" class="food-img" />
-          <img src="images/food6.png" alt="" class="food-img" />
+          <img src="images/food1.png" alt="" class="food-img food-img--1" />
+          <img src="images/food2.png" alt="" class="food-img food-img--2" />
+          <img src="images/food3.png" alt="" class="food-img food-img--3" />
+          <img src="images/food4.png" alt="" class="food-img food-img--4" />
+          <img src="images/food5.png" alt="" class="food-img food-img--5" />
+          <img src="images/food6.png" alt="" class="food-img food-img--6" />
         </div>
       </div>
       <div id="footer"><img src="images/main_07.jpg" alt="" /></div>
@@ -73,26 +73,42 @@
 
       // 무한 슬라이더 (순환, 복제 없음)
       const items = Array.from(document.querySelectorAll('#fan .slide-item'));
-      const vw = window.innerWidth / 100;
-      const itemW = 18 * vw;
-      const gap = 4 * vw;
-      const step = itemW + gap;
 
-      // 초기 위치 설정
+      function getMetrics() {
+        const vw = window.innerWidth / 100;
+        return {
+          itemW: 18 * vw,
+          gap:    4 * vw,
+          step:  22 * vw
+        };
+      }
+
+      let metrics = getMetrics();
       const positions = items.map(function (item, i) {
-        const x = i * step;
+        const x = i * metrics.step;
         item.style.left = x + 'px';
         return x;
       });
 
-      const speed = 0.3;
+      // 창 크기 바뀌면 위치 재계산
+      window.addEventListener('resize', function () {
+        const prev = metrics;
+        metrics = getMetrics();
+        const ratio = metrics.step / prev.step;
+        for (let i = 0; i < items.length; i++) {
+          positions[i] = positions[i] * ratio;
+          items[i].style.left = positions[i] + 'px';
+        }
+      });
+
+      const speed = 0.5;
 
       function animateSlider() {
         const maxPos = Math.max.apply(null, positions);
         for (let i = 0; i < items.length; i++) {
           positions[i] -= speed;
-          if (positions[i] + itemW < 0) {
-            positions[i] = maxPos + step - speed;
+          if (positions[i] + metrics.itemW < 0) {
+            positions[i] = maxPos + metrics.step - speed;
           }
           items[i].style.left = positions[i] + 'px';
         }
