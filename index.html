@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="style.css" />
+    <title>tacobell</title>
+  </head>
+
+  <body>
+
+    <!-- 우측 상단 고정 네비게이션 -->
+    <div class="nav-wrap" id="navWrap">
+      <nav class="nav-menu" id="navMenu">
+        <a href="index.html">Home</a>
+        <a href="#">Menu</a>
+        <a href="sns.html">SNS</a>
+        <a href="#">Store</a>
+      </nav>
+      <button class="nav-icon" id="toggle">
+        <img src="icon.png" alt="menu" />
+      </button>
+    </div>
+
+    <div id="wrap">
+      <!-- HEADER -->
+      <div id="header">
+        <img src="main_01.jpg" alt="" class="bg" />
+        <div class="taco-wrap slide-down">
+          <img src="taco1.png" alt="타코" class="taco-main" />
+          <img src="taco2.png" alt="부시래기" class="taco-deco" />
+        </div>
+      </div>
+
+      <div id="main">
+        <img src="main_02.jpg" alt="" class="bg" />
+      </div>
+      <div id="taco"><img src="main_03.jpg" alt="" /></div>
+      <div id="fan">
+        <img src="main_04.jpg" alt="" class="fan-bg" />
+        <div class="slider-container">
+          <img src="fd1.png" alt="팬 1" class="slide-item" />
+          <img src="fd2.png" alt="팬 2" class="slide-item" />
+          <img src="fd3.png" alt="팬 3" class="slide-item" />
+          <img src="fd4.png" alt="팬 4" class="slide-item" />
+          <img src="fd5.png" alt="팬 5" class="slide-item slide-item--narrow" />
+        </div>
+      </div>
+      <div id="search">
+        <img src="main_05.jpg" alt="" class="bg" />
+      </div>
+      <div id="menu">
+        <img src="main_06.jpg" alt="" />
+        <div class="food-items">
+          <img src="food1.png" alt="" class="food-img" />
+          <img src="food2.png" alt="" class="food-img" />
+          <img src="food3.png" alt="" class="food-img" />
+          <img src="food4.png" alt="" class="food-img" />
+          <img src="food5.png" alt="" class="food-img" />
+          <img src="food6.png" alt="" class="food-img" />
+        </div>
+      </div>
+      <div id="footer"><img src="main_07.jpg" alt="" /></div>
+    </div>
+
+    <script>
+      // 네비게이션
+      const toggle = document.getElementById('toggle');
+      const navMenu = document.getElementById('navMenu');
+      toggle.addEventListener('click', function () {
+        navMenu.classList.toggle('open');
+      });
+
+      // 무한 슬라이더 (순환, 복제 없음)
+      const items = Array.from(document.querySelectorAll('#fan .slide-item'));
+      const vw = window.innerWidth / 100;
+      const itemW = 18 * vw;
+      const gap = 4 * vw;
+      const step = itemW + gap;
+
+      // 초기 위치 설정
+      const positions = items.map(function (item, i) {
+        const x = i * step;
+        item.style.left = x + 'px';
+        return x;
+      });
+
+      const speed = 0.3;
+
+      function animateSlider() {
+        const maxPos = Math.max.apply(null, positions);
+        for (let i = 0; i < items.length; i++) {
+          positions[i] -= speed;
+          if (positions[i] + itemW < 0) {
+            positions[i] = maxPos + step - speed;
+          }
+          items[i].style.left = positions[i] + 'px';
+        }
+        requestAnimationFrame(animateSlider);
+      }
+      animateSlider();
+    </script>
+  </body>
+</html>
