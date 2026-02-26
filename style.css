@@ -96,15 +96,10 @@
   transform: translateY(-50%);
 }
 
-.taco-main {
-  width: 22vw;
-}
-
 .taco-deco {
   position: absolute;
-  width: 10vw;
-  bottom: -2vh;
-  right: -3vw;
+  top: -5vh;
+  left: 1vw;
 }
 
 .slide-down {
@@ -134,8 +129,20 @@
 /* ==============================
    MAIN SECTIONS
 ============================== */
-#wrap img {
+#wrap img:not(.taco-main):not(.taco-deco):not(.food-img):not(.slide-item) {
   width: 100%;
+  display: block;
+}
+
+.taco-main {
+  width: 45vw;
+  min-width: 240px;
+  display: block;
+}
+
+.taco-deco {
+  width: 50vw;
+  min-width: 260px;
   display: block;
 }
 
@@ -219,16 +226,33 @@
 }
 
 @keyframes food-bounce {
-  0%, 100% { transform: translate(-50%, -50%);       }
-  50%       { transform: translate(-50%, calc(-50% - 1.5vh)); }
+  0%,
+  100% {
+    transform: translate(-50%, -50%);
+  }
+  50% {
+    transform: translate(-50%, calc(-50% - 1.5vh));
+  }
 }
 
-.food-img--1 { animation-delay: 0s;    }
-.food-img--2 { animation-delay: 0.3s;  }
-.food-img--3 { animation-delay: 0.6s;  }
-.food-img--4 { animation-delay: 0.15s; }
-.food-img--5 { animation-delay: 0.45s; }
-.food-img--6 { animation-delay: 0.75s; }
+.food-img--1 {
+  animation-delay: 0s;
+}
+.food-img--2 {
+  animation-delay: 0.3s;
+}
+.food-img--3 {
+  animation-delay: 0.6s;
+}
+.food-img--4 {
+  animation-delay: 0.15s;
+}
+.food-img--5 {
+  animation-delay: 0.45s;
+}
+.food-img--6 {
+  animation-delay: 0.75s;
+}
 
 .food-img--1 {
   left: 21%;
