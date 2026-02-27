@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="ko">
   <head>
     <meta charset="UTF-8" />
@@ -8,7 +8,6 @@
   </head>
 
   <body>
-
     <!-- 우측 상단 고정 네비게이션 -->
     <div class="nav-wrap" id="navWrap">
       <nav class="nav-menu" id="navMenu">
@@ -43,7 +42,7 @@
           <img src="images/fd2.png" alt="팬 2" class="slide-item" />
           <img src="images/fd3.png" alt="팬 3" class="slide-item" />
           <img src="images/fd4.png" alt="팬 4" class="slide-item" />
-          <img src="images/fd5.png" alt="팬 5" class="slide-item slide-item--narrow" />
+          <img src="images/fd7.png" alt="팬 5" class="slide-item" />
         </div>
       </div>
       <div id="search">
@@ -65,39 +64,39 @@
 
     <script>
       // 네비게이션
-      const toggle = document.getElementById('toggle');
-      const navMenu = document.getElementById('navMenu');
-      toggle.addEventListener('click', function () {
-        navMenu.classList.toggle('open');
+      const toggle = document.getElementById("toggle");
+      const navMenu = document.getElementById("navMenu");
+      toggle.addEventListener("click", function () {
+        navMenu.classList.toggle("open");
       });
 
       // 무한 슬라이더 (순환, 복제 없음)
-      const items = Array.from(document.querySelectorAll('#fan .slide-item'));
+      const items = Array.from(document.querySelectorAll("#fan .slide-item"));
 
       function getMetrics() {
         const vw = window.innerWidth / 100;
         return {
           itemW: 18 * vw,
-          gap:    4 * vw,
-          step:  22 * vw
+          gap: 4 * vw,
+          step: 22 * vw,
         };
       }
 
       let metrics = getMetrics();
       const positions = items.map(function (item, i) {
         const x = i * metrics.step;
-        item.style.left = x + 'px';
+        item.style.left = x + "px";
         return x;
       });
 
       // 창 크기 바뀌면 위치 재계산
-      window.addEventListener('resize', function () {
+      window.addEventListener("resize", function () {
         const prev = metrics;
         metrics = getMetrics();
         const ratio = metrics.step / prev.step;
         for (let i = 0; i < items.length; i++) {
           positions[i] = positions[i] * ratio;
-          items[i].style.left = positions[i] + 'px';
+          items[i].style.left = positions[i] + "px";
         }
       });
 
@@ -110,7 +109,7 @@
           if (positions[i] + metrics.itemW < 0) {
             positions[i] = maxPos + metrics.step - speed;
           }
-          items[i].style.left = positions[i] + 'px';
+          items[i].style.left = positions[i] + "px";
         }
         requestAnimationFrame(animateSlider);
       }
